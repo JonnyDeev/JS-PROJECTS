@@ -2,8 +2,9 @@
 
 const section = document.querySelector("section");
 const lives = document.querySelector(".livesLeft");
-let playerLives = 6;
+let playerLives = 8;
 const btn = document.querySelector("button");
+
 
 lives.textContent = playerLives;
 
@@ -75,6 +76,7 @@ const checkCards = (e) => {
   const clickedCard = e.target;
   clickedCard.classList.add("flipped");
   const flippedCard = document.querySelectorAll(".flipped");
+  const toggleCard = document.querySelectorAll(".toggleCard");
   console.log(clickedCard);
   //logic
   if (flippedCard.length === 2) {
@@ -83,11 +85,13 @@ const checkCards = (e) => {
       flippedCard[1].getAttribute("name")
     ) {
       console.log("correct");
+      heal();
       flippedCard.forEach((card) => {
         card.classList.remove("flipped");
         card.style.pointerEvents = "none";
       });
     } else {
+      domTakeDamage()
       console.log("incorrect");
       flippedCard.forEach((card) => {
         card.classList.remove("flipped");
@@ -98,29 +102,50 @@ const checkCards = (e) => {
       playerLives--;
       lives.textContent = playerLives;
       if (playerLives === 0) {
-        window.alert("Game Over! Press Ok to continue");
+        section.classList.remove("do-damage");
+        alert("Game Over! Press Ok to continue");
         reset();
       }
     }
+  }
+  if (toggleCard.length === 16) { 
+    alert("Congratulations! You have successfully completed the Game")
   }
 };
 
 const reset = () => {
   let cardData = randomize();
   let face = document.querySelectorAll(".face");
-  let cards = document.querySelectorAll(".card");
+  let card = document.querySelectorAll(".card");
+  section.style.pointerEvents = "none";
   cardData.forEach((item, index) => {
-    cards[index].classList.remove("toggleCard");
+    card[index].classList.remove("toggleCard");
     setTimeout(() => {
-      cards[index].style.pointerEvents = "all";
-      faces[index].src = item.imgSrc;
-      cards[index].setAttribute("name", item.name);
+      card[index].style.pointerEvents = "all";
+      face[index].src = item.imgSrc;
+      card[index].setAttribute("name", item.name);
+      section.style.pointerEvents = "all";
     }, 1000);
   });
-  playerLives = 6;
+  playerLives = 8;
   lives.textContent = playerLives;
 };
 generateCards();
 btn.addEventListener("click", () => {
   reset();
 });
+
+
+function domTakeDamage() {
+  section.classList.add("do-damage");
+  setTimeout(() => {
+    section.classList.remove("do-damage");
+  }, 1000);
+}
+
+function heal() {
+  section.classList.add("heal");
+  setTimeout(() => {
+	section.classList.remove("heal");
+}, 1000);
+}
