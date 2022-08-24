@@ -9,12 +9,19 @@ const calculate = document.querySelector('#calculate')
 const reset = document.querySelector('#reset')
 
 calculate.addEventListener('click', () => {
-    let percentage = toNumber(perInput.value)
-    let cost = toNumber(costOfService.value)
-    let tip = (percentage/100) * cost
-    tipInput.value = tip
-    billInput.value = tip + cost
-    console.log(tip)
+    if (isNaN(perInput.value) || isNaN(costOfService.value)) {
+        alert('Please enter a number')
+        return
+    }
+    else {
+        let percentage = toNumber(perInput.value)
+        let cost = toNumber(costOfService.value)
+        let tip = (percentage/100) * cost
+        tipInput.value = tip
+        billInput.value = tip + cost
+        console.log(tip)
+        return
+    }
 })
 
 
