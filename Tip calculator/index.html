@@ -25,31 +25,75 @@
     <header>
       <h1>Tip Calculator</h1>
     </header>
-    <section class="wrapper">
+    <section>
       <div class="container">
-        <input type="text" value="" placeholder="Enter cost of service" />
+        <div class="input-group cost-input">
+          <span class="input-group-text">Cost of service</span>
+          <input
+            id="costInput"
+            type="text"
+            class="form-control costOfService"
+            name="costInput"
+          />
+        </div>
         <!-- Range bar -->
-        <label for="customRange1" class="form-label">Tip Percentaje</label>
-        <input
+        <form>
+          <label for="customRange1" class="form-label">Tip Percentage</label>
+          <input
           type="range"
-          class="form-range"
+          name="rangeSlider"
+          class="form-range rangeSlider"
           id="customRange1"
           min="0"
           max="100"
-          value="0"
+          value="15"
           step="1"
-          onchange="updateRangeDisplay(this.value)"
-        />
-        <input type="text" id="rangeValue" value="0" />
+          oninput="this.form.rangeDisplay.value = this.value"
+          />
+          <div class="input-group rangeValue">
+            <input
+            id="percentageInput"
+            name="rangeDisplay"
+            type="text"
+            class="form-control"
+            value="15"
+            name="percentageInput"
+            oninput="this.form.rangeSlider.value = this.value"
+            />
+            <span class="input-group-text">%</span>
+          </div>
+        </form>
         <!-- Actions  -->
         <div class="actions">
-          <button type="submit" class="btn btn-outline-light">Calculate</button>
-          <button type="reset" class="btn btn-outline-light">Reset</button>
+          <button class="btn btn-outline-light" id="calculate">Calculate</button>
+          <button class="btn btn-outline-light" id="reset">Reset</button>
         </div>
         <!-- Results -->
         <label id="results">Results</label>
-        <input type="text" readonly value="18" />
-        <input type="text" readonly value="118" />
+        <!-- total tip -->
+        <div class="input-group tip-input">
+          <span class="input-group-text">Total Tip</span>
+          <input
+            type="text"
+            id="tip"
+            class="form-control"
+            name="tip"
+            value=0
+            readonly
+          />
+        </div>
+        <!-- total bill -->
+        <div class="input-group bill-input">
+          <span class="input-group-text">Total Bill</span>
+          <input
+            id="bill"
+            type="text"
+            class="form-control"
+            name="bill"
+            value=0
+            readonly
+          />
+        </div>
       </div>
     </section>
   </body>
